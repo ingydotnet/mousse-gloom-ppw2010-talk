@@ -1,0 +1,166 @@
+---- config
+title: Mousse and Gloom
+indent: 5
+height: 18
+width: 69
+skip: 0
+vimrc: |
+  set background=light
+
+---- center
+Mousse and Gloom
+
+Object Oriented Perl 5 - Fast and Free
+
+by Ingy döt Net
+
+Oct 9, 2010 -- Pittsburgh Perl Workshop
+
+----
+== Acmeism - http://acmeism.org
+
+* I am an Acmeist Programmer
+
++* I program in all languages
++                             AT ONCE!
+
++* Ingy - Pegex - Perl 6 Rules for *
+* Patch - TestML - Unit Tests for *
+----
+== OSDC Languages
+
+* Perl
+* Python
+* Ruby
+* JavaScript
+
+are all Object Oriented
+
++  except Perl 5!
+---- py
+== Python OO Class
+
+class PPW(YAPC):
+    def __init__(self, foo, bar):
+        self.foo = foo
+        self.bar = bar
+---- pm6
+== Perl 6 OO Class
+
+class PPW is YAPC {
+    has $.foo;
+    has $.bar;
+}
+---- pm
+== OO -> P5 -> DIY
+
+package PPW;
+
+@PPW::ISA = ('YAPC');
+
+sub new {my $class=shift;bless{@_},$class}
+
+sub foo {@_>1?do{$_[0]->{foo}=$_[1]}:$[0]->{foo}}
+sub bar {@_>1?do{$_[0]->{foo}=$_[1]}:$[0]->{foo}}
+---- pm
+== Welcome Moose!!
+
+package PPW;
+use Moose;
+
+extends 'YAPC';
+
+has foo => { is => 'rw' };
+has bar => { is => 'rw' };
+---- pm
+== Spiffy?
+
+package PPW;
+use YAPC -base;
+
+field 'foo';
+field 'bar';
+---- pm
+== Spiffy
+
+* Bad vibe from Source Filtering
+* Let Spiffy die
+* YAML.pm no longer Spiffy
+* But YAML::Base is really just Spiffy::Lite
+---- pm
+== Gloom - the Great Little OO Module
+
+package PPW;
+use YAPC -base;
+
+has 'foo';
+has 'bar';
+----
+== Problems with Moose (for *Modules*)
+
+* Moose is fine for OO Perl frameworks
+* Moose is bad for OO CPAN modules
+
+* Too big
+* Too slow
+* Too many dependencies
+----
+== Enter Mouse
+
+* Small
+* Fast
+* Too many dependencies
+
++ 1 is too many!
+----
+== Enter Mousse
+
+* Mousse is Mouse::Tiny
+
++* With *ZERO* dependencies
+---- pl
+== Add one line to Makefile.PL
+
+use inc::Module::Install;
+
+all_from 'lib/PPW.pm';
+
+use_mousse 'PPW::OO';
+
+WriteAll;
+---- pm
+== Welcome Mousse!!
+
+package PPW;
+use PPW::OO;
+
+extends 'YAPC';
+
+has foo => { is => 'rw' };
+has bar => { is => 'rw' };
+----
+== I <3 Gloom
+---- pl
+== Also just add one line to Makefile.PL
+
+use inc::Module::Install;
+
+all_from 'lib/PPW.pm';
+
+use_gloom 'PPW::OO';
+
+WriteAll;
+---- pm
+== Gloom - the Great Little OO Module
+
+package PPW;
+use YAPC -base;
+
+has 'foo';
+has 'bar';
+
+#-----------------
+package YAPC;
+use PPW::OO -base;
+----
+== The End
